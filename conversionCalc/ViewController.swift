@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var fromField: UITextField!
+    @IBOutlet weak var toField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,7 +28,15 @@ class ViewController: UIViewController {
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
-
-
+    
+    @IBAction func calculateButtonPressed(_ sender: UIButton) {
+    }
+    
+    @IBAction func clearButtonPressed(_ sender: UIButton) {
+    }
+    
+    @IBAction func modeButtonPressed(_ sender: UIButton) {
+    }
+    
 }
 
