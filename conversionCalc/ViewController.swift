@@ -33,9 +33,14 @@ class ViewController: UIViewController {
         if self.fromField.text != "" {
             self.toField.text = String (Double(self.fromField.text!)! * 0.9144)
         }
+        
+        
     }
     
     @IBAction func clearButtonPressed(_ sender: UIButton) {
+        self.fromField.text? = ""
+        self.toField.text? = ""
+        
     }
     
     @IBAction func modeButtonPressed(_ sender: UIButton) {
