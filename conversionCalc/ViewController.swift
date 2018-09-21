@@ -30,6 +30,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
+        if self.fromField.text != "" {
+            self.toField.text = String (Double(self.fromField.text!)! * 0.9144)
+        }
     }
     
     @IBAction func clearButtonPressed(_ sender: UIButton) {
