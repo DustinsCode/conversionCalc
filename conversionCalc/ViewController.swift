@@ -32,8 +32,9 @@ class ViewController: UIViewController {
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
         if self.fromField.text != "" {
             self.toField.text = String (Double(self.fromField.text!)! * 0.9144)
+        }else if self.toField.text != "" {
+            self.fromField.text = String(Double(self.toField.text!)! * 1.09361)
         }
-        
         
     }
     
