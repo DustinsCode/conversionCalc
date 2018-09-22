@@ -14,6 +14,7 @@
 		FBDBC474215016B600E46256 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBDBC472215016B600E46256 /* LaunchScreen.storyboard */; };
 		FBDBC47F215016B600E46256 /* conversionCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDBC47E215016B600E46256 /* conversionCalcTests.swift */; };
 		FBDBC48A215016B700E46256 /* conversionCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDBC489215016B700E46256 /* conversionCalcUITests.swift */; };
+		FBDBC4D22156BFE900E46256 /* DecimalMinusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDBC4D12156BFE900E46256 /* DecimalMinusTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		FBDBC485215016B700E46256 /* conversionCalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = conversionCalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBDBC489215016B700E46256 /* conversionCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = conversionCalcUITests.swift; sourceTree = "<group>"; };
 		FBDBC48B215016B700E46256 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBDBC4D12156BFE900E46256 /* DecimalMinusTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecimalMinusTextField.swift; path = ../../DecimalMinusTextField/DecimalMinusTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				FBDBC469215016B500E46256 /* AppDelegate.swift */,
 				FBDBC46B215016B500E46256 /* ViewController.swift */,
 				FBDBC46D215016B500E46256 /* Main.storyboard */,
+				FBDBC4D12156BFE900E46256 /* DecimalMinusTextField.swift */,
 				FBDBC470215016B600E46256 /* Assets.xcassets */,
 				FBDBC472215016B600E46256 /* LaunchScreen.storyboard */,
 				FBDBC475215016B600E46256 /* Info.plist */,
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBDBC4D22156BFE900E46256 /* DecimalMinusTextField.swift in Sources */,
 				FBDBC46C215016B500E46256 /* ViewController.swift in Sources */,
 				FBDBC46A215016B500E46256 /* AppDelegate.swift in Sources */,
 			);
