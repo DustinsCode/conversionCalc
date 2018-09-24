@@ -8,15 +8,41 @@
 
 import UIKit
 
-
-class ViewController: UIViewController {
+class ViewController: UIViewController, SettingsViewControllerDelegate {
+    func settingsChanged(fromUnits: LengthUnit, toUnits: LengthUnit, fromLengthIndex: Int, toLengthIndex: Int) {
+        self.fromUnitsLength = fromUnits
+        self.toUnitsLength = toUnits
+        self.fromLengthIndex = fromLengthIndex
+        self.toLengthIndex = toLengthIndex
+        
+        self.fromLabel.text? = fromUnits.rawValue
+        self.toLabel.text? = toUnits.rawValue
+    }
+    
+    func settingsChanged(fromUnits: VolumeUnit, toUnits: VolumeUnit, fromVolumeIndex: Int, toVolumeIndex: Int) {
+        self.fromUnitsVolume = fromUnits
+        self.toUnitsVolume = toUnits
+        self.fromVolumeIndex = fromVolumeIndex
+        self.toVolumeIndex = toVolumeIndex
+        
+        self.fromLabel.text? = fromUnits.rawValue
+        self.toLabel.text? = toUnits.rawValue
+    }
+    
+   
+    
+    
     
     var mode = CalculatorMode.Length
     var toUnitsLength = LengthUnit.Meters
     var fromUnitsLength = LengthUnit.Yards
     var toUnitsVolume = VolumeUnit.Liters
     var fromUnitsVolume = VolumeUnit.Gallons
-    
+    var fromLengthIndex : Int = 1
+    var toLengthIndex : Int = 0
+    var fromVolumeIndex : Int = 1
+    var toVolumeIndex : Int = 0
+
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var fromLabel: UILabel!
@@ -28,12 +54,38 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let detectTouch = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        
         self.view.addGestureRecognizer(detectTouch)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? UINavigationController {
+            
+            if let test = dest.viewControllers[0] as? SettingsViewController {
+                test.delegate = self
+                test.mode = self.mode
+                test.fromLength = self.fromUnitsLength
+                test.toLength = self.toUnitsLength
+                test.fromVolume = self.fromUnitsVolume
+                test.toVolume = self.toUnitsVolume
+                test.fromLengthIndex = self.fromLengthIndex
+                test.toLengthIndex = self.toLengthIndex
+                test.toVolumeIndex = self.toVolumeIndex
+                test.fromVolumeIndex = self.fromVolumeIndex
+                
+            }
+        }
+
     }
     
     @objc func dismissKeyboard() {
