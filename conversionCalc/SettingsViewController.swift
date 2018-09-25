@@ -2,7 +2,8 @@
 //  SettingsViewController.swift
 //  conversionCalc
 //
-//  Created by Dustin Thurston on 9/22/18.
+//  Created by Dustin Thurston & Dylan Kernohan
+//  9/22/18.
 //  Copyright © 2018 dndmobile. All rights reserved.
 //
 
@@ -15,20 +16,29 @@ protocol SettingsViewControllerDelegate {
 
 class SettingsViewController: UIViewController {
     
-
+    //Outlets for picker and labels
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
     
+    /* Variables relating to the picker.*/
     var pickerData: [String] = [String]()
     var selection : String?
-    var selectionDest : String?
+    var selectionDest : String?         //So we know if the picker is for "From" or "To"
+    
+    /* Length or Volume mode */
     var mode : CalculatorMode?
+    
+    /* Variables to be passed to ViewController depending on which mode we're in */
     var fromLength : LengthUnit?
     var toLength : LengthUnit?
     var fromVolume : VolumeUnit?
     var toVolume : VolumeUnit?
+    
+    /* Delegate to pass values back to ViewControler */
     var delegate : SettingsViewControllerDelegate?
+    
+    /* Indices to persist data when switching between screens */
     var fromLengthIndex : Int?
     var toLengthIndex : Int?
     var fromVolumeIndex : Int?
@@ -37,6 +47,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Populate picker selections based on current mode
         if mode == .Length{
             LengthUnit.allCases.forEach{
                 pickerData.append($0.rawValue)
@@ -54,8 +65,8 @@ class SettingsViewController: UIViewController {
         self.picker.delegate = self
         self.picker.dataSource = self
         
+        // Setting up UITapGestures for labels and making the picker disappear
         self.fromLabel.isUserInteractionEnabled = true
-        
         let detectTouch = UITapGestureRecognizer(target: self, action: #selector(self.hidePicker))
         let detectFromLabelTouch = UITapGestureRecognizer(target: self, action: #selector(self.showPickerFrom))
         let detectToLabelTouch = UITapGestureRecognizer(target: self, action: #selector(self.showPickerTo))
@@ -66,6 +77,7 @@ class SettingsViewController: UIViewController {
         
     }
     
+    /* Shows the picker for the From label */
     @objc func showPickerFrom(){
         hidePicker()
         if self.mode == .Length{
@@ -77,6 +89,7 @@ class SettingsViewController: UIViewController {
         self.selectionDest = "from"
     }
     
+    /* Shows the picker for the To label */
     @objc func showPickerTo(){
         hidePicker()
         if self.mode == .Length{
@@ -89,6 +102,7 @@ class SettingsViewController: UIViewController {
         self.selectionDest = "to"
     }
     
+    /* Hides the picker and saves picker's current selections to the appropriate variables */
     @objc func hidePicker(){
         if self.selectionDest == "from"{
             if self.mode == .Length{
@@ -118,23 +132,12 @@ class SettingsViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let dest = segue.destination as? ViewController {
-//            dest.delegate = self
-//        }
-//
-//    }
-    
+    /* Action for the save button.  Saves current picker selections and
+     * informs ViewController
+     **/
     @IBAction func saveButtonPressed(_ sender: Any) {
-        //temporary for now, delete these lines later once we can properly set these
-//        fromLength = .Yards
-//        toLength = .Meters
-//        fromVolume = .Gallons
-//        toVolume = .Quarts
         
         hidePicker()
         
@@ -147,11 +150,15 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    /* Cancel button handler.  Cancel button is hooked up to an unwind */
     @IBAction func cancelButtonPressed(_ sender: Any) {  }
     
     
 }
 
+/**
+ * Extension to handle the picker
+ */
 extension SettingsViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     // The number of columns of data
     func numberOfComponents(in: UIPickerView) -> Int
@@ -172,6 +179,7 @@ extension SettingsViewController : UIPickerViewDataSource, UIPickerViewDelegate 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
+        //Logic to persist selections between modes and views
         self.selection = self.pickerData[row]
         if self.selection != nil{
             if self.selectionDest == "from"{
@@ -193,10 +201,7 @@ extension SettingsViewController : UIPickerViewDataSource, UIPickerViewDelegate 
                     self.toLabel.text? = self.pickerData[toVolumeIndex!]
                 }
             }
-            
         }
-        
-        
     }
 }
 

@@ -2,13 +2,16 @@
 //  ViewController.swift
 //  conversionCalc
 //
-//  Created by Dustin Thurston on 9/17/18.
+//  Created by Dustin Thurston and Dylan Kernohan
+//  9/17/18.
 //  Copyright © 2018 dndmobile. All rights reserved.
 //
 
 import UIKit
 
 class ViewController: UIViewController, SettingsViewControllerDelegate {
+    
+    //Functions for the delegate handling
     func settingsChanged(fromUnits: LengthUnit, toUnits: LengthUnit, fromLengthIndex: Int, toLengthIndex: Int) {
         self.fromUnitsLength = fromUnits
         self.toUnitsLength = toUnits
@@ -19,6 +22,7 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
         self.toLabel.text? = toUnits.rawValue
     }
     
+    //Functions for the delegate handling
     func settingsChanged(fromUnits: VolumeUnit, toUnits: VolumeUnit, fromVolumeIndex: Int, toVolumeIndex: Int) {
         self.fromUnitsVolume = fromUnits
         self.toUnitsVolume = toUnits
@@ -32,19 +36,21 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
    
     
     
-    
+    //Tracks mode and current length/volume selections
     var mode = CalculatorMode.Length
     var toUnitsLength = LengthUnit.Meters
     var fromUnitsLength = LengthUnit.Yards
     var toUnitsVolume = VolumeUnit.Liters
     var fromUnitsVolume = VolumeUnit.Gallons
+    
+    //Indexes to persist picker selections between views and modes
     var fromLengthIndex : Int = 1
     var toLengthIndex : Int = 0
     var fromVolumeIndex : Int = 1
     var toVolumeIndex : Int = 0
 
+    //Outlets for the labels
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var fromField: UITextField!
     @IBOutlet weak var toField: UITextField!
@@ -53,8 +59,9 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let detectTouch = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         
+        //Setting up UITapGesture for making the keyboard go away
+        let detectTouch = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         self.view.addGestureRecognizer(detectTouch)
     }
 
@@ -68,9 +75,11 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
         
     }
     
+    //Handles delegates and passing variables between views
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? UINavigationController {
             
+            //initializing variables in SettingsViewController
             if let test = dest.viewControllers[0] as? SettingsViewController {
                 test.delegate = self
                 test.mode = self.mode
@@ -88,10 +97,13 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
 
     }
     
+    //Hides the keyboard
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
+    //Handling the calculate button.  Searches dictionary based on current mode and
+    //unit selections
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
         
         if mode == .Length{
@@ -118,11 +130,13 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
         
     }
     
+    //Clears the fields
     @IBAction func clearButtonPressed(_ sender: UIButton) {
         self.fromField.text? = ""
         self.toField.text? = ""
     }
     
+    //Switches between volume and length mode
     @IBAction func modeButtonPressed(_ sender: UIButton) {
         if mode == .Length{
             mode = .Volume
@@ -138,6 +152,8 @@ class ViewController: UIViewController, SettingsViewControllerDelegate {
         }
     }
     
+    //Handles the cancel button.  It doesn't appear connected, but when i delete this code
+    //the cancel and save button no longer work
     @IBAction func cancelButtonPressed(segue: UIStoryboardSegue){
         
     }
